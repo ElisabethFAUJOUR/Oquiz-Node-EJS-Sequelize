@@ -22,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 // On plug le router
 app.use(router);
 
+app.use((req,res) => {
+  res.status(404).render('404');
+});
 
 // Lancer l'application
 const port = process.env.PORT || 3000;

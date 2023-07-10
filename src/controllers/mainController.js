@@ -58,6 +58,22 @@ const mainController = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  async renderSignUpPage (req, res) {
+    try {
+      res.render("signup");
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async renderLoginPage (req, res) {
+    try {
+      res.render('login');
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

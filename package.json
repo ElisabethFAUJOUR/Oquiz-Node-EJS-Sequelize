@@ -16,6 +16,7 @@
   "author": "oclock.io",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "email-validator": "^2.0.4",

@@ -1,0 +1,11 @@
+<span class="badge bg-primary p-2 mb-1"><%= theme.name %></span>
+<% if (theme.quizzes.length !== 0) { %>
+ <ul>
+  <% theme.quizzes.sort((a, b) => a.title.localeCompare(b.title)).forEach(quiz => { %>
+    <li><a href="/quiz/<%= quiz.id %>"><%= quiz.title %> - <%= quiz.description %></a></li>
+  <% }) %>
+</ul>
+<% } else { %>
+ <p class="ms-2">Aucun quizz dans cette catégorie pour le moment....</p>
+<% } %>
+      

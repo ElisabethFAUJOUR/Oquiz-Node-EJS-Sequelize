@@ -1,0 +1,17 @@
+<%- include("partials/header") %>
+
+<main class="container py-4">
+
+    <h1>Thèmes</h1>
+  
+    <div>
+      <% themes.forEach(theme => { %>
+        <%- include("partials/theme", {theme: theme}) %>
+      <% }) %>
+
+    </div>
+  
+  </main>
+  
+  <%- include("partials/footer") %>
+  

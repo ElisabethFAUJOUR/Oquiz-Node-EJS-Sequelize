@@ -7,7 +7,8 @@ const mainController = {
         include : [
           "author",
           "tags"
-        ]
+        ],
+        order: [["title", "ASC"]]
       });
       res.render("home", { quizzes });
     } catch(error) {
@@ -40,11 +41,22 @@ const mainController = {
           ]
         }]
       });
-      console.log(quiz);
+      // console.log(quiz);
       res.render("quiz", { quiz });
     } catch(error) {
-      console.log(error);
       res.render("quiz", { error });
+    }
+  },
+  async renderThemesPage(req, res) {
+    try {
+      const themes = await Tag.findAll({
+        include: "quizzes"
+      });
+      res.render("themes", {
+        themes
+      });
+    } catch (error) {
+      console.log(error);
     }
   }
 };

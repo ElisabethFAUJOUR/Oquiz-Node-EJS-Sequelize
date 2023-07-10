@@ -24,8 +24,13 @@
   <header class="d-flex justify-content-between align-items-center p-3 bg-primary text-white">
     <a href="/" class="h3 text-white text-decoration-none">O'quiz</a>
     <nav class="my-1">
+      <% if (locals?.user) { %>
+        <a class="p-2 text-white" href="/themes">Thèmes</a>
+        <a class="p-2 text-white">Bienvenue <%= locals.user.firstname %></a>
+      <% } else { %>
         <a class="p-2 text-white" href="/themes">Thèmes</a>
         <a class="p-2 text-white" href="/signup">S'inscrire</a>
         <a class="p-2 text-white" href="/login">Se connecter</a>
+      <% } %>
     </nav>
   </header>

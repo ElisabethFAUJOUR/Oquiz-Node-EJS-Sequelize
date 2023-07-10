@@ -10,5 +10,6 @@ router.get("/themes", mainController.renderThemesPage);
 router.get("/login", mainController.renderLoginPage);
 router.get("/signup", mainController.renderSignUpPage);
 router.post("/addUser", userController.addUser);
+router.post('/connectUser', userController.connectUser);
 
 module.exports = router;

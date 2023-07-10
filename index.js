@@ -4,10 +4,23 @@ dotenv.config();
 
 // Importer les dependances
 const express = require("express");
+const session = require('express-session');
 const router = require("./src/router");
 
 // Création de l'application express
 const app = express();
+
+// Setup session
+app.use(session({
+  secret: process.env.SECRET_SESSION,
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(function(req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+});
 
 // Configurer le view engine
 app.set("view engine", "ejs");
@@ -22,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 // On plug le router
 app.use(router);
 
+// Error 404
 app.use((req,res) => {
   res.status(404).render('404');
 });

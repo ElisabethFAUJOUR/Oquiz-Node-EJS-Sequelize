@@ -3,6 +3,10 @@
 <main class="container py-4">
   <h1 class="my-3">Mon profil sur O'quiz</h1>
 
+  <% if (locals.user.admin) { %>
+   <p>Vous êtes un administrateur!</p>
+  <% } %>
+
   <label class="form-label h4" for="firstname">Prénom</label>
   <input class="form-control mb-4" type="text" disabled id="firstname" value="<%= locals.user.firstname %>">
 

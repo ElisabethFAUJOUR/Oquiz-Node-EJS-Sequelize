@@ -31,8 +31,8 @@
     <% for(const level of levels) { %>
     <li>
       <span class="badge bg-info p-3"><%= level.name %></span>
-
-      <a
+        <% if (locals.user.admin) { %>
+         <a
         class="btn btn-outline-info py-0 px-1 ms-3 fs-6 text-decoration-none"
         href="/levels/<%= level.id %>/edit"
         >ÉDITER</a
@@ -50,11 +50,13 @@
           value="SUPPRIMER"
         />
       </form>
+        <% } %>
+      
     </li>
     <% } %>
   </ul>
-
-  <h1 class="my-4">Ajouter un niveau</h1>
+  <% if (locals.user.admin) { %>
+   <h1 class="my-4">Ajouter un niveau</h1>
 
   <form class="mb-5" action="/levels" method="POST">
     <label class="form-label" for="name">Nom du niveau</label>
@@ -65,6 +67,8 @@
       value="Ajouter le niveau"
     />
   </form>
+  <% } %>
+  
 </main>
 
 <%- include("partials/footer") %>

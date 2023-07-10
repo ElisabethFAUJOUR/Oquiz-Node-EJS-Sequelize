@@ -3,23 +3,38 @@ const {hashPassword, comparePassword} = require("../lib/password.js");
 const validator = require("email-validator");
 
 const userController = {
-  async addUser(req, res) {
+  async addUser(req, res, next) {
     const { firstname, lastname, email, password, confirmation } = req.body;
     try {
       if (password !== confirmation) {
         throw new Error("Confirmation de mot de passe invalide");
       }
-      if (!validator.validate(email)) {
+      /*if (!validator.validate(email)) {
         throw new Error("Email invalide");
-      }
+      }*/
       const hashedPassword = await hashPassword(password);
-      const user = await User.create({
-        firstname,
-        lastname,
-        email,
-        password: hashedPassword
-      });
-      return user;
+      try {
+        await User.create({
+          firstname,
+          lastname,
+          email,
+          password: hashedPassword,
+          admin: false
+        });
+        req.session.user = {
+          email,
+          firstname,
+          lastname,
+          admin: false
+        };
+        req.session.save(function (err) {
+          if (err) return next(err);
+          console.log(req.session);
+          res.redirect("/profile");
+        });
+      } catch (error) {
+        return error;
+      }
     }
     catch (error) {
       res.render('signup', {error: error.message});
@@ -42,7 +57,8 @@ const userController = {
           req.session.user = {
             email: userFromDb.email,
             firstname: userFromDb.firstname,
-            lastname: userFromDb.lastname
+            lastname: userFromDb.lastname,
+            admin: userFromDb.admin
           };
           // save the session before redirection to ensure page
           // load does not happen before session is saved
@@ -56,7 +72,6 @@ const userController = {
     } catch(error) {
       console.log(error);
     }
-
   },
 
   async renderProfilePage(req, res) {

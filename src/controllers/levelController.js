@@ -2,6 +2,9 @@ const { Level } = require("../models");
 
 const levelController = {
   async renderLevelEditPage(req, res) {
+    if (!req.session.user?.admin) {
+      res.redirect('/');
+    }
     const levelId = parseInt(req.params.id);
 
     const level = await Level.findByPk(levelId);
@@ -23,6 +26,9 @@ const levelController = {
     try {
       //check if level already exists
       const level = await Level.findOne({ where: { name } });
+      if (!req.session.user?.admin) {
+        throw new Error("Vous n'êtes pas administrateur!");
+      }
       if (level) {
         throw new Error("Ce niveau existe déjà !");
       } else {
@@ -45,6 +51,9 @@ const levelController = {
   async deleteOneLevel(req, res) {
     const { id } = req.params;
     try {
+      if (!req.session.user?.admin) {
+        throw new Error("Vous n'êtes pas administrateur!");
+      }
       //check if level is assigned to a question
       const level = await Level.findByPk(id, {
         include: ["questions"],
@@ -73,6 +82,9 @@ const levelController = {
     const { id } = req.params;
     const { name } = req.body;
     try {
+      if (!req.session.user?.admin) {
+        throw new Error("Vous n'êtes pas administrateur!");
+      }
       //check if level already exists
       const level = await Level.findOne({ where: { name } });
       if (level) {

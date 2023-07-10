@@ -1,5 +1,6 @@
 const {User} = require('../models/index.js');
 const {hashPassword, comparePassword} = require("../lib/password.js");
+const validator = require("email-validator");
 
 const userController = {
   async addUser(req, res) {
@@ -7,6 +8,9 @@ const userController = {
     try {
       if (password !== confirmation) {
         throw new Error("Confirmation de mot de passe invalide");
+      }
+      if (!validator.validate(email)) {
+        throw new Error("Email invalide");
       }
       const hashedPassword = await hashPassword(password);
       const user = await User.create({
@@ -18,7 +22,7 @@ const userController = {
       return user;
     }
     catch (error) {
-      return console.log(error);
+      res.render('signup', {error: error.message});
     }
   },
 
@@ -53,6 +57,18 @@ const userController = {
       console.log(error);
     }
 
+  },
+
+  async renderProfilePage(req, res) {
+    try {
+      if (!req.session.user) {
+        res.redirect("/login");
+      } else {
+        res.render("profile");
+      }
+    } catch(error) {
+      return error;
+    }
   }
 };
 

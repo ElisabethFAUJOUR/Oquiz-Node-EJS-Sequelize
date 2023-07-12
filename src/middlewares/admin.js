@@ -1,10 +1,10 @@
 const adminMw = {
-  isAdminAndIsAuthed (req, res, next) {
-    if(req.session.user && req.session.user.role === 'admin'){
+  isAdmin (req, res, next) {
+    if(req.session.user && req.session.user.role === 'admin'){ // si l'utilisateur est connecté et role=admin => next dans la route
       next();
     }
     else {
-      res.redirect('/');
+      res.redirect('/'); // sinon on redirige vers la home page
     }
   },
 };

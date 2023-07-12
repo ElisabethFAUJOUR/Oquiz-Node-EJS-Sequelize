@@ -29,10 +29,7 @@ const levelController = {
       } else {
         await Level.create({ name });
         const levels = await Level.findAll();
-        res.render("levels", {
-          levels,
-          success: "Le niveau a bien été créé !",
-        });
+        res.render("levels", { levels, success: "Le niveau a bien été créé !"});
       }
     } catch (error) {
       console.trace(error);

@@ -9,26 +9,26 @@ const adminMw = require("./middlewares/admin");
 
 const router = Router();
 
-router.get("/", mainController.renderHomePage);
+router.get("/", mainController.renderHomePage); // Home Page
 
-router.get("/quiz/:id", quizController.renderQuizPage);
+router.get("/quiz/:id", quizController.renderQuizPage); // Quiz page
 
-router.get("/themes", tagController.renderThemesPage);
+router.get("/themes", tagController.renderThemesPage); // Themes page
 
-router.get("/signup", sessionMw.checkIsConnected, userController.renderSignUpPage);
-router.post("/signup", sessionMw.checkIsConnected, userController.signupAndRedirect);
+router.get("/signup", sessionMw.isAuthed, userController.renderSignUpPage); // Signup page
+router.post("/signup", sessionMw.isAuthed, userController.signupAndRedirect);
 
-router.get("/login", sessionMw.checkIsConnected, userController.renderLoginPage);
-router.post('/login', sessionMw.checkIsConnected, userController.connectUser);
+router.get("/login", sessionMw.isAuthed, userController.renderLoginPage); // Login page
+router.post('/login', sessionMw.isAuthed, userController.connectUser);
 
-router.get("/logout", userController.logoutUser);
+router.get("/logout", sessionMw.isAuthed, userController.logoutUser); // Logout
 
-router.get("/profile", userController.renderProfilePage);
+router.get("/profile", userController.renderProfilePage); // Profile Page
 
-router.get("/levels", adminMw.isAdminAndIsAuthed, levelController.getAllLevels);
-router.get("/levels/:id/edit", adminMw.isAdminAndIsAuthed, levelController.renderLevelEditPage);
-router.post("/levels", adminMw.isAdminAndIsAuthed, levelController.addOneLevel);
-router.post("/levels/:id/delete", adminMw.isAdminAndIsAuthed, levelController.deleteOneLevel);
-router.post("/levels/:id/update", adminMw.isAdminAndIsAuthed, levelController.updateOneLevel);
+router.get("/levels", adminMw.isAdmin, levelController.getAllLevels); // Levels Page
+router.post("/levels", adminMw.isAdmin, levelController.addOneLevel);
+router.get("/levels/:id/edit", adminMw.isAdmin, levelController.renderLevelEditPage); // Level Edit Page
+router.post("/levels/:id/delete", adminMw.isAdmin, levelController.deleteOneLevel);
+router.post("/levels/:id/update", adminMw.isAdmin, levelController.updateOneLevel);
 
 module.exports = router;

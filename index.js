@@ -6,6 +6,7 @@ dotenv.config();
 const express = require("express");
 const session = require('express-session');
 const router = require("./src/router");
+const middleware = require("./src/middlewares/middleware");
 
 // Création de l'application express
 const app = express();
@@ -17,10 +18,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use(function(req, res, next) {
-  res.locals.user = req.session.user;
-  next();
-});
+// Middleware locals user
+app.use(middleware.addUserToLocals);
 
 // Configurer le view engine
 app.set("view engine", "ejs");
@@ -36,9 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 // Error 404
-app.use((req,res) => {
-  res.status(404).render('404');
-});
+app.use(middleware.render404page);
 
 // Lancer l'application
 const port = process.env.PORT || 3000;

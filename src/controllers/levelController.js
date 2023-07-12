@@ -21,6 +21,7 @@ const levelController = {
     const levels = await Level.findAll();
     res.render("levels", { levels });
   },
+
   async addOneLevel(req, res) {
     const { name } = req.body;
     try {
@@ -42,12 +43,10 @@ const levelController = {
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
   },
+
   async deleteOneLevel(req, res) {
     const { id } = req.params;
     try {
@@ -65,19 +64,14 @@ const levelController = {
       }
       await Level.destroy({ where: { id } });
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        success: "Le niveau a bien été supprimé !",
-      });
+      res.render("levels", { levels, success: "Le niveau a bien été supprimé !" });
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
   },
+
   async updateOneLevel(req, res) {
     const { id } = req.params;
     const { name } = req.body;
@@ -92,20 +86,14 @@ const levelController = {
       } else {
         await Level.update({ name }, { where: { id } });
         const levels = await Level.findAll();
-        res.render("levels", {
-          levels,
-          success: "Le niveau a bien été modifié !",
-        });
+        res.render("levels", { levels, success: "Le niveau a bien été modifié !"});
       }
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
-  },
+  }
 };
 
 module.exports = levelController;

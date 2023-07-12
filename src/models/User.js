@@ -15,13 +15,13 @@ User.init({
     allowNull: false,
     unique: true
   },
-  password: {
+  role: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  admin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   sequelize,

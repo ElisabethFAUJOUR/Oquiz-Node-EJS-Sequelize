@@ -62,7 +62,6 @@ const userController = {
             firstname : firstname,
             lastname : lastname,
             password : hashedPassword,
-            admin : false
           }
         });
         // - ✅ Vérifier si l'email n'est pas déjà présent dans la BDD
@@ -75,7 +74,7 @@ const userController = {
           email: user.email,
           firstname: user.firstname,
           lastname: user.lastname,
-          admin: false
+          role : user.role,
         };
 
         req.session.save(function (err) {
@@ -113,7 +112,7 @@ const userController = {
             email: user.email,
             firstname: user.firstname,
             lastname: user.lastname,
-            admin: user.admin
+            role : user.role
           };
           // enregistrer la session avant la redirection
           // le chargement ne se produit pas avant la sauvegarde de la session

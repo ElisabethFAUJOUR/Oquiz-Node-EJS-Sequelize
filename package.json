@@ -11,7 +11,8 @@
     "start": "node index.js",
     "db:create": "psql -U oquiz -d oquiz -f data/create_tables.sql",
     "db:populate": "psql -U oquiz -d oquiz -f data/populate_tables.sql",
-    "db:reset": "npm run db:create && npm run db:populate"
+    "db:reset": "npm run db:create && npm run db:populate",
+    "db:migrate": "psql -U oquiz -d oquiz -f data/migrate_user_role.sql"
   },
   "author": "oclock.io",
   "license": "ISC",

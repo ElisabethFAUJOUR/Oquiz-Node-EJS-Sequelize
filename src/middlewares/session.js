@@ -1,7 +1,12 @@
-const middleware = {
-  render404page(req, res) {
-    res.status(404).render("404");
-  },
+
+const session = require('express-session');
+
+const sessionMw = {
+  setupSession : session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: true
+  }),
 
   addUserToLocals(req, res, next) {
     if(req.session.user){
@@ -21,4 +26,4 @@ const middleware = {
 
 };
 
-module.exports = middleware;
+module.exports = sessionMw;

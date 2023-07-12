@@ -12,8 +12,8 @@
       aria-label="Close"
     ></button>
   </div>
-  <% } %> <% if (locals.error) { %>
-
+  <% } %> 
+  <% if (locals.error) { %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <%= error %>
     <button
@@ -31,7 +31,7 @@
     <% for(const level of levels) { %>
     <li>
       <span class="badge bg-info p-3"><%= level.name %></span>
-        <% if (locals.user.admin) { %>
+
          <a
         class="btn btn-outline-info py-0 px-1 ms-3 fs-6 text-decoration-none"
         href="/levels/<%= level.id %>/edit"
@@ -50,12 +50,10 @@
           value="SUPPRIMER"
         />
       </form>
-        <% } %>
-      
     </li>
     <% } %>
   </ul>
-  <% if (locals.user.admin) { %>
+ 
    <h1 class="my-4">Ajouter un niveau</h1>
 
   <form class="mb-5" action="/levels" method="POST">
@@ -67,7 +65,7 @@
       value="Ajouter le niveau"
     />
   </form>
-  <% } %>
+
   
 </main>
 

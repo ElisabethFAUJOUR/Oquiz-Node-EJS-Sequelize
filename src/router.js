@@ -12,6 +12,7 @@ const router = Router();
 router.get("/", mainController.renderHomePage); // Home Page
 
 router.get("/quiz/:id", quizController.renderQuizPage); // Quiz page
+router.post("/quiz/:id/result", quizController.renderQuizResultPage); // Quiz result page
 
 router.get("/themes", tagController.renderThemesPage); // Themes page
 

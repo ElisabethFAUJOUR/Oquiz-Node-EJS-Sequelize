@@ -17,16 +17,16 @@ router.post("/quiz/:id/result", quizController.renderQuizResultPage); // Quiz re
 router.get("/themes", tagController.renderThemesPage); // Themes page
 
 router.get("/signup", userController.renderSignUpPage); // Signup page
-router.post("/signup", userController.signupAndRedirect);
+router.post("/signup", userController.signup);
 
 router.get("/login", userController.renderLoginPage); // Login page
-router.post('/login', userController.connectUser);
+router.post('/login', userController.login);
 
-router.get("/logout", isAuthed, userController.logoutUser); // Logout
+router.get("/logout", isAuthed, userController.logout); // Logout
 
 router.get("/profile", isAuthed, userController.renderProfilePage); // Profile Page
 
-router.get("/levels", isAdmin, levelController.getAllLevels); // Levels Page
+router.get("/levels", isAdmin, levelController.renderLevelsPage); // Levels Page
 router.post("/levels", isAdmin, levelController.addOneLevel);
 router.get("/levels/:id/edit", isAdmin, levelController.renderLevelEditPage); // Level Edit Page
 router.post("/levels/:id/delete", isAdmin, levelController.deleteOneLevel);

@@ -14,7 +14,7 @@ const levelController = {
     res.render("level", { level });
   },
 
-  async getAllLevels(_req, res) {
+  async renderLevelsPage(_req, res) {
     const levels = await Level.findAll();
     res.render("levels", { levels });
   },

@@ -33,7 +33,7 @@ const userController = {
     }
   },
 
-  async signupAndRedirect(req, res, next) {
+  async signup(req, res, next) {
     const { firstname, lastname, email, password, confirmation } = req.body;
     try {
       // - ✅ Vérifier que tous les champs sont présents
@@ -91,7 +91,7 @@ const userController = {
     }
   },
 
-  async connectUser(req, res, next) {
+  async login(req, res, next) {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({
@@ -126,7 +126,7 @@ const userController = {
     }
   },
 
-  logoutUser(req, res) {
+  logout(req, res) {
     try {
       req.session.user = null;
       res.redirect('/');

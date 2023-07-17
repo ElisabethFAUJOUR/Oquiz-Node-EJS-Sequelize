@@ -62,6 +62,7 @@ const userController = {
             firstname : firstname,
             lastname : lastname,
             password : hashedPassword,
+            role : "member"
           }
         });
         // - ✅ Vérifier si l'email n'est pas déjà présent dans la BDD
@@ -94,7 +95,7 @@ const userController = {
     const { email, password } = req.body;
     try {
       const user = await User.findOne({
-        where : { email : email }
+        where : { email : email },
       });
       // - ✅ Vérifier si l'email de l'utilisateur est bien dans la BDD
       if (!user) {
@@ -107,13 +108,9 @@ const userController = {
           console.log(error);
           if (error) next(error);
 
-          // stocker les informations de l'utilisateur SANS le mdp
-          req.session.user = {
-            email: user.email,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            role : user.role
-          };
+          // stocker les informations de l'utilisateur SANS le mdp => que l'id
+          req.session.user = user;
+
           // enregistrer la session avant la redirection
           // le chargement ne se produit pas avant la sauvegarde de la session
           req.session.save(function (err) {

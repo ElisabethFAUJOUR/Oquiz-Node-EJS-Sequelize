@@ -17,18 +17,18 @@
   "author": "oclock.io",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "dotenv": "^16.0.3",
-    "ejs": "^3.1.8",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "email-validator": "^2.0.4",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "pg": "^8.8.0",
+    "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.25.8"
+    "sequelize": "^6.33.0"
   },
   "devDependencies": {
-    "eslint": "^8.28.0",
-    "nodemon": "^2.0.20"
+    "eslint": "^8.51.0",
+    "nodemon": "^3.0.1"
   }
 }

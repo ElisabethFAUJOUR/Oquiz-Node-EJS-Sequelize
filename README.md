@@ -16,6 +16,7 @@ Follow these steps to set up and use the Oquiz application:
 2. Make sure you have Node.js installed, if not you can download it from https://nodejs.org/ 
 3. Install Dependencies : `npm install`
 4. Add the .env file
-5. Start the Server: `npm run start`
-6. Access the Application: open your web browser and navigate to http://localhost:3000
-7. Enjoy the Ghibliotheque Librairy !
+5. Create and seed Database : `npm run db:reset`
+6. Start the Server: `npm run dev`
+7. Access the Application: open your web browser and navigate to http://localhost:3000
+8. Enjoy the Oquiz App !

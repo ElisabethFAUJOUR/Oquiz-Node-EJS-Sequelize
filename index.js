@@ -5,40 +5,40 @@ dotenv.config();
 // Importer les dependances
 const express = require("express");
 const session = require('express-session');
+
+// Import local
 const router = require("./src/router");
+const middleware404 = require("./src/middlewares/middleware404");
+const addUserToLocals = require("./src/middlewares/addUserToLocals");
 
 // Création de l'application express
 const app = express();
 
-// Setup session
-app.use(session({
-  secret: process.env.SECRET_SESSION,
-  resave: false,
-  saveUninitialized: true
-}));
+// Setup session & Ajout de User dans les locals
+app.use(
+  session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: true
+  })
+);
+app.use(addUserToLocals);
 
-app.use(function(req, res, next) {
-  res.locals.user = req.session.user;
-  next();
-});
-
-// Configurer le view engine
+// Config view engine
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 
-// On expose le contenu du dossier public au reste du monde
+// Setup dossier public
 app.use(express.static("public")); // Ca revient à déclarer une route par fichier en quelque sorte
 
-// Notre body parser pour les requêtes POST
+// Body parser
 app.use(express.urlencoded({ extended: true }));
 
-// On plug le router
+// Config le router
 app.use(router);
 
-// Error 404
-app.use((req,res) => {
-  res.status(404).render('404');
-});
+// Middleware error 404
+app.use(middleware404);
 
 // Lancer l'application
 const port = process.env.PORT || 3000;

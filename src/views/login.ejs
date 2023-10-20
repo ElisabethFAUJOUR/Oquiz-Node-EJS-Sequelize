@@ -5,11 +5,13 @@
   <h1>Se connecter</h1>
 
   <!-- Toast en cas d'erreur  -->
-  <!-- <div class="alert alert-danger" role="alert">
-    Une erreur s'est produite lors de la connexion.
-  </div> -->
-
-  <form action="/connectUser" method="POST">
+  <% if (locals?.error) { %>
+    <div class="alert alert-danger" role="alert">
+     <%= locals.error %>
+   </div>
+   <% } %>
+   
+  <form action="/login" method="POST">
     <label class="form-label h4" for="email">Email</label>
     <input class="form-control mb-4" type="email" id="email" name="email" placeholder="email@domain.com">
 

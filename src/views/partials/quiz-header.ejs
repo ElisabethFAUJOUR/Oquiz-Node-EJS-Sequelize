@@ -1,0 +1,14 @@
+<h1 class="text-center m-2"><%= quiz.title %></h1>
+
+<h2 class="text-center m-2"><%= quiz.description %></h1>
+
+<h2 class="small text-end">Par <%= quiz.author.firstname %> <%= quiz.author.lastname %></h2>
+
+<h2 class="small text-end">Date de création : <%= new Date(quiz.created_at).toDateString() %></h2>
+
+<h3>Thèmes</h3>
+<ul class="mb-4 p-0">
+  <% quiz.tags.forEach(tag => { %>
+    <li class="badge bg-primary"><%= tag.name %></li>
+  <% }) %>
+</ul>

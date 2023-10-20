@@ -28,6 +28,7 @@
       <% if (locals?.user) { %>
         <a class="p-2 text-white" href="/levels">Niveaux</a>
         <a class="p-2 text-white" href="/profile">Bienvenue <%= locals.user.firstname %></a>
+        <a class="p-2 text-white" href="/logout">Se déconnecter</a>
       <% } else { %>
         <a class="p-2 text-white" href="/signup">S'inscrire</a>
         <a class="p-2 text-white" href="/login">Se connecter</a>

@@ -2,9 +2,6 @@ const { Level } = require("../models");
 
 const levelController = {
   async renderLevelEditPage(req, res) {
-    if (!req.session.user?.admin) {
-      res.redirect('/');
-    }
     const levelId = parseInt(req.params.id);
 
     const level = await Level.findByPk(levelId);
@@ -17,43 +14,33 @@ const levelController = {
     res.render("level", { level });
   },
 
-  async getAllLevels(_req, res) {
+  async renderLevelsPage(_req, res) {
     const levels = await Level.findAll();
     res.render("levels", { levels });
   },
+
   async addOneLevel(req, res) {
     const { name } = req.body;
     try {
       //check if level already exists
       const level = await Level.findOne({ where: { name } });
-      if (!req.session.user?.admin) {
-        throw new Error("Vous n'êtes pas administrateur!");
-      }
       if (level) {
         throw new Error("Ce niveau existe déjà !");
       } else {
         await Level.create({ name });
         const levels = await Level.findAll();
-        res.render("levels", {
-          levels,
-          success: "Le niveau a bien été créé !",
-        });
+        res.render("levels", { levels, success: "Le niveau a bien été créé !"});
       }
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
   },
+
   async deleteOneLevel(req, res) {
     const { id } = req.params;
     try {
-      if (!req.session.user?.admin) {
-        throw new Error("Vous n'êtes pas administrateur!");
-      }
       //check if level is assigned to a question
       const level = await Level.findByPk(id, {
         include: ["questions"],
@@ -65,26 +52,18 @@ const levelController = {
       }
       await Level.destroy({ where: { id } });
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        success: "Le niveau a bien été supprimé !",
-      });
+      res.render("levels", { levels, success: "Le niveau a bien été supprimé !" });
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
   },
+
   async updateOneLevel(req, res) {
     const { id } = req.params;
     const { name } = req.body;
     try {
-      if (!req.session.user?.admin) {
-        throw new Error("Vous n'êtes pas administrateur!");
-      }
       //check if level already exists
       const level = await Level.findOne({ where: { name } });
       if (level) {
@@ -92,20 +71,14 @@ const levelController = {
       } else {
         await Level.update({ name }, { where: { id } });
         const levels = await Level.findAll();
-        res.render("levels", {
-          levels,
-          success: "Le niveau a bien été modifié !",
-        });
+        res.render("levels", { levels, success: "Le niveau a bien été modifié !"});
       }
     } catch (error) {
       console.trace(error);
       const levels = await Level.findAll();
-      res.render("levels", {
-        levels,
-        error: error.message,
-      });
+      res.render("levels", { levels, error: error.message });
     }
-  },
+  }
 };
 
 module.exports = levelController;

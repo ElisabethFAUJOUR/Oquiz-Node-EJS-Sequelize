@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+
+<main class="container py-4">
+
+  <%- include('partials/quiz-header') %>
+
+  <h3>Ton score : <%= userScore %> / <%= nbOfQuestions %></h3>
+
+  <h3>Réponses</h3>
+
+  <% quiz.questions.forEach(question => { %>
+    <span class="badge bg-info"><%= question.level.name %></span>
+    <a href="https://fr.wikipedia.org/wiki/<%= question.wiki %>"><small>En savoir plus ?</small></a>
+    <p class="fw-bold mb-1"><%= question.description %></p>
+    <div class="mb-3 ms-2">
+      <!-- J'aimerais afficher en vers la proposition dont l'ID est question.good_answer.id -->
+      <% question.propositions.forEach(proposition => { %>
+        <% if (proposition.id === question.good_answer.id) { %> <!-- On affiche les bonnes réponses en vert -->
+          <div class="text-success">
+        <% } else if (proposition.id === parseInt(userAnswers[question.id])) { %> <!-- On affiche les mauvaises réponses en rouge -->
+          <div class="text-danger">
+        <% } else { %>
+          <div> <!-- Et rien de particulier pour les réponses non choisies -->
+        <% } %>
+            <input disabled type="radio" id="<%= proposition.id %>">
+            <label for="<%= proposition.id %>"><%= proposition.description %></label>
+          </div>
+      <% }) %>
+    </div>
+    <p class="fst-italic text-secondary"><%= question.anecdote %></p>
+  <% }) %>
+  <a class="btn btn-primary" href="/quiz/<%= quiz.id %>">Retenter le quiz ?</a>
+</main>
+<%- include('partials/footer') %>
